@@ -1,0 +1,89 @@
+Shopify Filter siderbar
+
+
+
+<details
+  id="CategoryFilter-{{ section.id }}"
+  class="facets__disclosure-vertical js-filter"
+  open
+>
+ <summary
+  class="facets__summary caption-large focus-offset"
+  aria-expanded="true"
+  aria-controls="CategoryFacet-{{ section.id }}"
+>
+  <div>
+    <span class="facets__summary-label">
+      {{ 'Categories' }}
+    </span>
+    {{- 'icon-caret.svg' | inline_asset_content -}}
+  </div>
+</summary>
+
+  <div
+    id="CategoryFacet-{{ section.id }}"
+    class="facets__display-vertical"
+  >
+    <fieldset class="facets-wrap facets-wrap-vertical">
+      <legend class="visually-hidden">{{ 'Categories' }}</legend>
+      <ul class="list-unstyled facets__list--vertical" role="list">
+        {% for collection in collections %}
+          <li class="facets__item">
+            <label for="Category-{{ collection.handle }}" class="facets__label facet-checkbox">
+              <input
+                type="checkbox"
+                name="filter[collection]"
+                value="{{ collection.handle }}"
+                id="Category-{{ collection.handle }}"
+                class="facets__checkbox"
+              >
+              <span class="facet-checkbox__text" aria-hidden="true">
+                <span class="facet-checkbox__text-label">
+                  {{ collection.title }}
+                </span>
+              </span>
+              <span class="visually-hidden">
+                {{ collection.title }}
+              </span>
+            </label>
+          </li>
+        {% endfor %}
+      </ul>
+    </fieldset>
+  </div>
+</details>
+
+
+
+<script>
+  document.querySelectorAll('.facets__checkbox').forEach(checkbox => {
+  checkbox.addEventListener('change', () => {
+    const selectedCategories = Array.from(
+      document.querySelectorAll('.facets__checkbox:checked')
+    ).map(input => input.value);
+
+    const url = new URL(window.location.href);
+    url.searchParams.delete('filter[collection]');
+    selectedCategories.forEach(category => {
+      url.searchParams.append('filter[collection]', category);
+    });
+
+    fetch(url)
+      .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.text();
+      })
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const newProducts = doc.querySelector('.product-grid');
+        if (newProducts) {
+          document.querySelector('.product-grid').innerHTML = newProducts.innerHTML;
+        }
+        history.pushState({}, '', url);
+      })
+      .catch(error => console.error('Error during fetch:', error));
+  });
+});
+
+</script>

@@ -1,0 +1,1018 @@
+<style>
+.custom-addon-icons {
+    display: flex;
+    gap: 15px;
+    margin: 10px 0px;
+  }
+  .addon-title-block{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .addon-title{
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0px 0px 10px;
+    line-height: normal;
+  }
+  .addon-description{
+    font-size: 13px;
+    line-height: normal;
+  }
+  .addon-image-block{
+    width: 70px;
+  }
+  .addon-price{
+    line-height: normal;
+    font-weight: 600;
+    margin-left: 5px;
+  }
+  .hidden{
+    display: none;
+  }
+
+  .addon-icon {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #e0e0e0;
+    border: 2px solid #228b22;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    line-height: normal;
+    max-width: 201px;
+    width: 100%;
+    font-size: 13px;
+    font-weight: 600;
+    position: relative;
+  }
+   .addon-icon h2{
+      font-size: 14px;
+    font-weight: 800;
+     color: #228b22;
+     z-index: 2;
+     line-height: 17px;
+     position: relative;
+     pointer-events: none;
+     font-family: "Poppins", sans-serif;
+   }
+  
+  .addon-icon img {
+    pointer-events: none;
+  }
+
+  .addon-icon:hover {
+   border: 2px solid #228b22;
+  }
+  .addon-icon.added h2{
+    color:#228b22;
+   
+  }
+   .addon-icon.added{
+    
+    border: 2px solid #228b22; 
+  }
+ .addon-icon.activated{
+    border: 2px solid #228b22;  
+ }
+  
+.out-of-stock-cstm{
+  color:#228b22;
+}
+  
+  /* Hidden sliding panel */
+  .addon-info-panel {
+    position: absolute;
+    bottom: 284px;
+    left: 0;
+    right: 0;
+    background-color: white;
+    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1);
+    padding:10px 10px 10px 20px;
+    transition: bottom 0.5s ease;
+    z-index: 1000;
+  }
+.addon-info-panel{
+  display: none;
+}
+  .addon-info-panel.active {
+    bottom: 207px;
+    display:block;
+  }
+
+  .addon-icon.disabled {
+    cursor: not-allowed;
+    pointer-events: none !important;
+    position: relative;
+  }
+
+  .addon-icon.disabled:before {
+    content: "x";
+    position: absolute;
+    top: -15px;
+    right: 0;
+    background-color: blue;
+    padding: 2px 6px;
+    border-radius: 50px;
+    line-height: 100%;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  .addon-info-content {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .addon-info-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  .addon-add-to-cart {
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border: 2px solid #228b22;
+    color: #000;
+    font-weight: 600;
+    line-height: normal;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .addon-add-to-cart:hover {
+    background-color: #228b22;
+     color: #fff;
+  }
+  .addon-remove-from-cart{
+    font-size: 14px;
+    color: #228b22;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+.damage-protection::before,
+.theft-protection::before,
+.loss-protection::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    z-index: 1; 
+   opacity: 0.8;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+#satcb_sticky_cart {
+    z-index: 3 !important;
+}
+  
+.damage-protection::before {
+    background-image: url("//cdn.shopify.com/s/files/1/0270/6538/5047/files/image_478d077e-a838-4ca8-a4ff-720921fbc7a8.png?v=1724738307");
+}
+
+.theft-protection::before {
+    background-image: url("//cdn.shopify.com/s/files/1/0270/6538/5047/files/image_f00f7e64-d4ea-4911-a1dc-442f2ecb2f05.png?v=1724738588");
+}
+
+.loss-protection::before {
+    background-image: url("//cdn.shopify.com/s/files/1/0270/6538/5047/files/Loss-Protection5.png?v=1724740454");
+}
+ @media screen and (max-width: 640px) {
+   .addon-info-panel.active {
+        bottom: 215px;
+    }
+   .mini-cart__content {
+        overflow: auto;
+        height: calc(100% - 360px);
+    }
+ }
+
+  @media screen and (max-width: 550px) {
+        .custom-addon-title {
+    font-size: 13px;
+}
+.addon-icon{
+  font-size: 10px;
+  padding: 10px 5px;
+}
+    .timer-icons{
+    height: 15px;
+    width: auto;
+    margin-right: 5px;
+}
+.addon-image-block {
+    width: 60px;
+    margin-right: 5px;
+}
+  .addon-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0px 0px 5px;
+    line-height: normal;
+}
+  .addon-description {
+    font-size: 12px;
+    line-height: normal;
+    text-align: left;
+}
+  .addon-add-to-cart {
+    padding: 7px 15px;
+}
+  .custom-addon-price {
+    font-size: 13px;
+}
+  .custom-addon-description {
+    font-size: 12px;
+    line-height: normal;
+}
+  .addon-info-panel.active {
+    bottom: 190px;
+        border-bottom: 1px solid #d9d9d9;
+}
+    .mini-cart__content {
+        overflow: auto;
+        height: calc(100% - 330px);
+    }
+    .addon-info-panel {
+    padding: 10px 20px 10px 10px;
+}
+    .mini-cart__recap {
+        padding: 0 10px 2px 10px;
+    }
+    .timerContainer strong {
+    font-size: 12px;
+}
+    .limited-time-stock h3 {
+    text-align: center;
+    font-size: 11px;
+}
+    #timerDiv, .message {
+    text-align: center;
+    font-size: 11px;
+}
+    .limited-time-stock h3 strong{
+    text-align: center;
+    font-size: 12px;
+}
+    #timeDisplay {
+    font-size: 12px;
+    font-weight: 600;
+}
+} 
+
+
+
+
+
+
+
+
+
+
+.mini-cart__button-container .button--secondary {
+  display: none;
+}
+.mini-cart__button-container {
+  margin-top: 5px;
+}
+.main-cart-heading {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #d3d3d3;
+}
+.cart-heading-text {
+  margin: 0;
+  line-height: normal;
+  font-size: 22px;
+  font-weight: 600;
+  text-decoration: underline;
+}
+.button-exit {
+  line-height: normal;
+  font-size: 22px;
+  cursor: pointer;
+}
+.mini-cart__alert-wrapper {
+  padding: 0;
+}
+.mini-cart__line-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 5px 0;
+}
+.mini-cart__content:not(.mini-cart__content--empty) > * {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.mini-cart__image-wrapper {
+  min-width: 70px;
+  width: 70px;
+  margin-right: 10px;
+}
+.mini-cart__product-title {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 13px;
+  line-height: normal;
+}
+.custom-addon-content {
+  width: 100%;
+}
+.custom-addon-button {
+  margin-left: 15px;
+}
+.mini-cart__line-item-list #mini-41175808933975,
+.mini-cart__line-item-list #mini-41189798608983,
+.mini-cart__line-item-list #mini-41171493224535 {
+  display: none;
+}
+@media screen and (min-height: 700px) and (min-width: 641px) {
+  .mini-cart__line-item-list {
+    max-height: max-content;
+  }
+}
+.mini-cart__content {
+  overflow: auto;
+  height: calc(100% - 350px);
+}
+.mini-cart__inner {
+  height: 100%;
+}
+@media screen and (min-width: 641px) {
+  .mini-cart__recap {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding: 0 10px 10px;
+  }
+}
+@media screen and (min-width: 641px) {
+  .mini-cart__product-info {
+    margin: 0 10px 0 0;
+  }
+}
+.custom-addon-block {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+.custom-addon-image {
+  margin-right: 10px;
+}
+.custom-addon-image img {
+  width: 70px;
+  min-width: 70px;
+}
+.custom-addon-title-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.custom-addon-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+  line-height: normal;
+}
+.custom-addon-price {
+  line-height: normal;
+  font-weight: 600;
+}
+.custom-addon-description {
+  font-size: 13px;
+  line-height: normal;
+}
+.customAddtoCartLossProtection {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #ccc;
+  outline: none;
+  transition: background-color 0.4s;
+  background: #c4cdd5;
+  border: 2px solid #fff;
+  border-radius: 100px;
+  box-shadow: 0 1.6875px #161d251a, inset 0 1.6875px 0 1.6875px #ffffff0f;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 27px;
+  margin-right: 0;
+  padding: 2px;
+  position: relative;
+  width: 54px;
+}
+.customAddtoCartLossProtection:before {
+  content: "";
+  position: absolute;
+  width: 19px;
+  height: 19px;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.4s;
+}
+.customAddtoCartLossProtection:checked {
+  background-color: #0dcd8d;
+  padding: 2px;
+}
+.customAddtoCartLossProtection:checked:before {
+  transform: translate(26px);
+}
+.customAddtoCartLossProtection:checked:after {
+  content: "";
+  position: absolute;
+  width: 11px;
+  height: 10px;
+  left: 8px;
+  top: 6px;
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.86554 1.46252L3.36866 8.88752L0.58429 6.10315" stroke="white" stroke-width="0.928125" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: opacity 0.4s;
+  opacity: 1;
+}
+.customAddtoCartLossProtection:after {
+  content: "";
+  position: absolute;
+  width: 11px;
+  height: 10px;
+  left: 10px;
+  top: 6px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.customAddtoCartShippingProtection {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #ccc;
+  outline: none;
+  transition: background-color 0.4s;
+  background: #c4cdd5;
+  border: 2px solid #fff;
+  border-radius: 100px;
+  box-shadow: 0 1.6875px #161d251a, inset 0 1.6875px 0 1.6875px #ffffff0f;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 27px;
+  margin-right: 0;
+  padding: 2px;
+  position: relative;
+  width: 54px;
+}
+.customAddtoCartShippingProtection:before {
+  content: "";
+  position: absolute;
+  width: 19px;
+  height: 19px;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.4s;
+}
+.customAddtoCartShippingProtection:checked {
+  background-color: #0dcd8d;
+  padding: 2px;
+}
+.customAddtoCartShippingProtection:checked:before {
+  transform: translate(26px);
+}
+.customAddtoCartShippingProtection:checked:after {
+  content: "";
+  position: absolute;
+  width: 11px;
+  height: 10px;
+  left: 8px;
+  top: 6px;
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.86554 1.46252L3.36866 8.88752L0.58429 6.10315" stroke="white" stroke-width="0.928125" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: opacity 0.4s;
+  opacity: 1;
+}
+.customAddtoCartShippingProtection:after {
+  content: "";
+  position: absolute;
+  width: 11px;
+  height: 10px;
+  left: 10px;
+  top: 6px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.customAddtoCartdamageProtection {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #ccc;
+  outline: none;
+  transition: background-color 0.4s;
+  background: #c4cdd5;
+  border: 2px solid #fff;
+  border-radius: 100px;
+  box-shadow: 0 1.6875px #161d251a, inset 0 1.6875px 0 1.6875px #ffffff0f;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 27px;
+  margin-right: 0;
+  padding: 2px;
+  position: relative;
+  width: 54px;
+}
+.customAddtoCartdamageProtection:before {
+  content: "";
+  position: absolute;
+  width: 19px;
+  height: 19px;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.4s;
+}
+.customAddtoCartdamageProtection:checked {
+  background-color: #0dcd8d;
+  padding: 2px;
+}
+.customAddtoCartdamageProtection:checked:before {
+  transform: translate(26px);
+}
+.customAddtoCartdamageProtection:checked:after {
+  content: "";
+  position: absolute;
+  width: 11px;
+  height: 10px;
+  left: 8px;
+  top: 6px;
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.86554 1.46252L3.36866 8.88752L0.58429 6.10315" stroke="white" stroke-width="0.928125" stroke-linecap="round" stroke-linejoin="round"></path></svg>');
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: opacity 0.4s;
+  opacity: 1;
+}
+.customAddtoCartdamageProtection:after {
+  content: "";
+  position: absolute;
+  width: 11px;
+  height: 10px;
+  left: 10px;
+  top: 6px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.mini-cart[aria-hidden="true"] {
+  visibility: hidden;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.4s cubic-bezier(0, 1, 0.4, 1),
+    transform 0.4s cubic-bezier(0.18, 1.25, 0.4, 1), visibility 0.4s linear;
+  position: fixed;
+  top: 0;
+  right: -500px;
+  height: 100%;
+  transition: right 0.5s linear;
+}
+.mini-cart[aria-hidden="false"] {
+  right: 0;
+  visibility: visible;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.4s cubic-bezier(0, 1, 0.4, 1),
+    transform 0.4s cubic-bezier(0.18, 1.25, 0.4, 1), visibility 0.4s linear;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  transition: right 0.25s linear;
+}
+@media screen and (max-width: 640px) {
+  .mini-cart__content {
+    flex-direction: column;
+    display: flex;
+  }
+  .mini-cart__recap {
+    padding: 0 10px 2px;
+    bottom: 0;
+    position: absolute;
+  }
+  .mini-cart[aria-hidden="false"] {
+    max-height: 100% !important;
+  }
+  .mini-cart__inner,
+  .mini-cart__content--empty {
+    height: 100%;
+  }
+}
+@media screen and (max-width: 550px) {
+  .custom-addon-title {
+    font-size: 13px;
+  }
+  .addon-icon {
+    font-size: 10px;
+    padding: 10px 5px;
+  }
+  .addon-image-block {
+    width: 60px;
+    margin-right: 5px;
+  }
+  .addon-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 5px;
+    line-height: normal;
+  }
+  .addon-description {
+    font-size: 12px;
+    line-height: normal;
+    text-align: left;
+  }
+  .addon-add-to-cart {
+    padding: 7px 15px;
+  }
+  .custom-addon-price {
+    font-size: 13px;
+  }
+  .custom-addon-description {
+    font-size: 12px;
+    line-height: normal;
+  }
+  .customAddtoCartdamageProtection:checked:after,
+  .customAddtoCartShippingProtection:checked:after,
+  .customAddtoCartLossProtection:checked:after {
+    width: 9px;
+    height: 10px;
+    left: 7px;
+    top: 3px;
+  }
+  .customAddtoCartdamageProtection:before,
+  .customAddtoCartShippingProtection:before,
+  .customAddtoCartLossProtection:before {
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: -6px;
+  }
+  .custom-addon-button {
+    margin-left: 10px;
+  }
+  .customAddtoCartdamageProtection,
+  .customAddtoCartShippingProtection,
+  .customAddtoCartLossProtection {
+    height: 20px;
+    width: 40px;
+  }
+}
+.timerContainer {
+  padding: 8px;
+  border: 1px solid;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+}
+#timerDiv,
+.message {
+  text-align: center;
+  font-size: 13px;
+}
+#timeDisplay {
+  font-size: 14px;
+  font-weight: 600;
+  color: #228b22;
+}
+.mini-cart__recap-price-line,
+.mini-cart__amount-saved {
+  display: none;
+}
+#message {
+  margin: 0;
+}
+.main-discount-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main-discount-group span {
+  text-align: center;
+  font-size: 13px;
+}
+.main-discount-group .money-discount {
+  text-align: center;
+  font-size: 14px;
+  color: #228b22;
+  padding-left: 4px;
+}
+.limited-time-stock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.limited-time-stock h3 {
+  text-align: center;
+  font-size: 13px;
+}
+.timer-icons {
+  height: 17px;
+  width: auto;
+  margin-right: 5px;
+}
+.timerContainer strong {
+  font-size: 14px;
+}
+#timerDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/*# sourceMappingURL=/cdn/shop/t/18/assets/custom-drawer.css.map?v=45522511795036198421726416391 */
+
+
+</style> 
+
+ <div class="custom-addon-icons">
+        <div class="addon-icon damage-protection added" data-productid="45730679783649" data-addontype="damage-protection">
+            <h2>Damage<br> Protection</h2>
+        </div>
+        <div class="addon-icon loss-protection added" data-productid="45730701639905" data-addontype="loss-protection">
+            <h2>Loss<br> Protection</h2>
+        </div>
+        <div class="addon-icon theft-protection added" data-productid="45730605334753" data-addontype="theft-protection">
+            <h2>Theft<br> Protection</h2>
+        </div>
+    </div>
+
+    <div id="addon-info-panel" class="addon-info-panel">
+        <div class="addon-info-content">
+            <div class="addon-info-header">
+                <div class="addon-image-block"><img src="https://cdn.shopify.com/s/files/1/0270/6538/5047/files/Artboard_14_3x_7ef6cd15-1fb9-4b78-b309-79c2b706294b.png?v=1724440563" class="addon-image"></div>
+                <div class="addon-title-block">
+                    <span class="addon-title">Damage Protection</span>
+                    <span class="addon-description">Protect your order from shipping damage.</span>
+                </div>
+                <span class="addon-price">$100.00</span>
+            </div>
+            <button class="addon-add-to-cart" data-pid="">Add to Cart</button>
+            <button class="addon-remove-from-cart hidden" data-pid="45730679783649">Remove</button>
+        </div>
+    </div>
+
+    <div id="addon-info-panel" class="addon-info-panel">
+        <div class="addon-info-content">
+            <div class="addon-info-header">
+                <div class="addon-image-block"><img src="https://cdn.shopify.com/s/files/1/0270/6538/5047/files/Artboard_15_3x_7b0cb735-b37d-434e-93fb-15277ee57b7e.png?v=1724440563" class="addon-image"></div>
+                <div class="addon-title-block">
+                    <span class="addon-title">Loss Protection</span>
+                    <span class="addon-description">Safeguard your order from loss during shipping.</span>
+                </div>
+                <span class="addon-price">$30.00</span>
+            </div>
+            <button class="addon-add-to-cart" data-pid="">Add to Cart</button>
+            <button class="addon-remove-from-cart hidden" data-pid="45730701639905">Remove</button>
+        </div>
+    </div>
+
+    <div id="addon-info-panel" class="addon-info-panel">
+        <div class="addon-info-content">
+            <div class="addon-info-header">
+                <div class="addon-image-block"><img src="https://cdn.shopify.com/s/files/1/0270/6538/5047/files/Artboard_13_3x_154f3a2a-ddfa-4513-a97e-8a9f88b6bdeb.png?v=1724440563" class="addon-image"></div>
+                <div class="addon-title-block">
+                    <span class="addon-title">Theft Protection</span>
+                    <span class="addon-description">Protect your purchase from theft during shipping.</span>
+                </div>
+                <span class="addon-price">$20.00</span>
+            </div>
+            <button class="addon-add-to-cart hidden" data-pid="">Add to Cart</button>
+            <button class="addon-remove-from-cart" data-pid="45730605334753">Remove</button>
+        </div>
+    </div>
+    
+	
+	
+	
+	<script>
+	function customAddToCartJS(variantID, qty = 1) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            fetch("/cart.js").then(response => response.json()).then(cart => {
+                const existingItem = cart.items.find(item => item.variant_id === variantID);
+                if (existingItem && existingItem.quantity >= 1) console.log("Product already in cart with quantity 1 or more. No further increase allowed."), resolve();
+                else {
+                    var xhr = new XMLHttpRequest,
+                        url = "/cart/add.js";
+                    xhr.open("POST", url, !0), xhr.setRequestHeader("Content-Type", "application/json"), xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4)
+                            if (xhr.status === 200) {
+                                var parsedState = JSON.parse(xhr.responseText);
+                                document.documentElement.dispatchEvent(new CustomEvent("cart:refresh", {
+                                    bubbles: !0
+                                })), console.log("Cart Refreshed from add to cart functoin"), resolve()
+                            } else reject(xhr.statusText)
+                    };
+                    var data = JSON.stringify({
+                        quantity: qty,
+                        id: variantID
+                    });
+                    xhr.send(data)
+                }
+            }).catch(error => reject(error))
+        }, 1e3)
+    })
+}
+
+
+function removeFromCartJS(variantID) {
+    return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest,
+            url = "/cart/change.js";
+        xhr.open("POST", url, !0), xhr.setRequestHeader("Content-Type", "application/json"), xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4)
+                if (xhr.status === 200) {
+                    var parsedState = JSON.parse(xhr.responseText);
+                    document.documentElement.dispatchEvent(new CustomEvent("cart:refresh", {
+                        bubbles: !0
+                    })), console.log("Cart Refreshed from remove functoin"), resolve()
+                } else reject(xhr.statusText)
+        };
+        var data = JSON.stringify({
+            quantity: 0,
+            id: variantID,
+        });
+        xhr.send(data)
+    })
+}
+const bindCartRefreshEvent = btn => {
+        btn.addEventListener("click", () => {
+            console.log("update clicked"), setTimeout(() => {
+                document.documentElement.dispatchEvent(new CustomEvent("cart:refresh", {
+                    bubbles: !0
+                }))
+            }, 500)
+        })
+    },
+    addOnData = {
+        "loss-protection": {
+            title: "Loss Protection",
+            price: "$30.00",
+            image: "https://cdn.shopify.com/s/files/1/0270/6538/5047/files/Artboard_15_3x_7b0cb735-b37d-434e-93fb-15277ee57b7e.png?v=1724440563",
+            description: "Safeguard your order from loss during shipping.",
+            pid: "45730701639905"
+        },
+        "damage-protection": {
+            title: "Damage Protection",
+            price: "$100.00",
+            image: "https://cdn.shopify.com/s/files/1/0270/6538/5047/files/Artboard_14_3x_7ef6cd15-1fb9-4b78-b309-79c2b706294b.png?v=1724440563",
+            description: "Protect your order from shipping damage.",
+            pid: "45730679783649"
+        },
+        "theft-protection": {
+            title: "Theft Protection",
+            price: "$20.00",
+            image: "https://cdn.shopify.com/s/files/1/0270/6538/5047/files/Artboard_13_3x_154f3a2a-ddfa-4513-a97e-8a9f88b6bdeb.png?v=1724440563",
+            description: "Protect your purchase from theft during shipping.",
+            pid: "45730605334753"
+        }
+    },
+    addEventToEachIcon = () => {
+        document.querySelectorAll(".addon-icon").forEach(icon => {
+            icon.addEventListener("click", event => {
+                event.preventDefault();
+                const addonType = icon.getAttribute("data-addontype"),
+                    addonInfo = addOnData[addonType];
+                document.querySelector(".addon-title").textContent = addonInfo.title, document.querySelector(".addon-price").textContent = addonInfo.price, document.querySelector(".addon-description").textContent = addonInfo.description, document.querySelector(".addon-image").setAttribute("src", addonInfo.image), fetch("/cart.js").then(response => response.json()).then(cart => {
+                    const existingItem = cart.items.find(item => item.variant_id == +addonInfo.pid);
+                    document.querySelector(".addon-remove-from-cart").setAttribute("data-pid", ""), document.querySelector(".addon-add-to-cart").setAttribute("data-pid", ""), existingItem && existingItem.quantity >= 1 ? (document.querySelector(".addon-add-to-cart").classList.add("hidden"), document.querySelector(".addon-remove-from-cart").classList.remove("hidden"), document.querySelector(".addon-remove-from-cart").setAttribute("data-pid", addonInfo.pid)) : (document.querySelector(".addon-add-to-cart").classList.remove("hidden"), document.querySelector(".addon-add-to-cart").setAttribute("data-pid", addonInfo.pid), document.querySelector(".addon-remove-from-cart").classList.add("hidden"))
+                }), document.getElementById("addon-info-panel").classList.add("active")
+            })
+        })
+    },
+    popUpHandler = () => {
+        const cartRemoveBtns = document.querySelectorAll(".mini-cart__quantity-remove"),
+            qtyBtns = document.querySelectorAll(".quantity-selector__button");
+        cartRemoveBtns.forEach(bindCartRefreshEvent), qtyBtns.forEach(bindCartRefreshEvent), addEventToEachIcon(), document.addEventListener("click", e => {
+            const panel = document.getElementById("addon-info-panel"),
+                clickedInsidePanel = panel.contains(e.target),
+                clickedOnIcon = e.target.classList.contains("addon-icon");
+            !clickedInsidePanel && !clickedOnIcon && panel.classList.remove("active")
+        })
+    },
+    addButtonFunctionality = () => {
+        const addToCartBtn = document.querySelector(".addon-add-to-cart");
+        addToCartBtn.replaceWith(addToCartBtn.cloneNode(!0));
+        const newAddToCartBtn = document.querySelector(".addon-add-to-cart");
+        newAddToCartBtn.addEventListener("click", async event => {
+            event.preventDefault(), newAddToCartBtn.disabled = !0, newAddToCartBtn.style.display = "none", console.log("adding product"), await customAddToCartJS(event.target.dataset.pid), console.log("Product added"), document.querySelector(`.addon-icon[data-productid="${event.target.dataset.pid}"]`).classList.add("added")
+        }, {
+            once: !0
+        })
+    };
+
+function addRemoveFunctionality() {
+    document.querySelector(".addon-remove-from-cart").addEventListener("click", async event => {
+        event.preventDefault(), await removeFromCartJS(event.target.dataset.pid)
+    })
+}
+const addClassToElements = () => {
+        fetch("/cart.js").then(response => response.json()).then(cart => {
+            cart.items.forEach(item => {
+                document.querySelector(`.addon-icon[data-productid="${item.variant_id}"]`)?.classList?.add("added")
+            })
+        })
+    },
+    cartManager = () => {
+        setTimeout(() => {
+            const damageProtection = document.querySelector(".damage-protection"),
+                shippingProtection = document.querySelector(".theft-protection"),
+                lossProtection = document.querySelector(".loss-protection"),
+                addOns = document.querySelectorAll(".addon-icon"),
+                cartLines = document.querySelectorAll(".mini-cart__line-item"),
+                addOnProductLoss = Object.values(cartLines).filter(item => item.id.includes(damageProtection.dataset.productid) || item.id.includes(shippingProtection.dataset.productid) || item.id.includes(lossProtection.dataset.productid));
+            async function addAllProducts() {
+                for (const [index, addOn] of addOns.entries()) await customAddToCartJS(+addOn.dataset.productid, 1), console.log("added " + index)
+            }
+            async function removeAllProducts() {
+                for (const addOn of addOnProductLoss) await removeFromCartJS(addOn.dataset.itemkey), console.log(addOn.dataset.itemkey)
+            }
+            addOnProductLoss.length === cartLines.length ? removeAllProducts() : addOnProductLoss.length == 0 && cartLines.length <= 1 && (console.log("All products Added to cart"), addAllProducts())
+        }, 1e3), document.documentElement.dispatchEvent(new CustomEvent("cart:refresh", {
+            bubbles: !0
+        }))
+    },
+    cartRefreshManager = () => {
+        setTimeout(() => {
+            const damageProtection = document.querySelector(".damage-protection"),
+                shippingProtection = document.querySelector(".theft-protection"),
+                lossProtection = document.querySelector(".loss-protection"),
+                cartLines = document.querySelectorAll(".mini-cart__line-item"),
+                addOnProductLoss = Object.values(cartLines).filter(item => item.id.includes(damageProtection.dataset.productid) || item.id.includes(shippingProtection.dataset.productid) || item.id.includes(lossProtection.dataset.productid));
+            async function removeAllProducts() {
+                for (const addOn of addOnProductLoss) await removeFromCartJS(addOn?.dataset?.itemkey), console.log("Removed item productid: " + addOn?.dataset?.itemkey)
+            }
+
+          
+            console.log("Removal Condition "), console.log(addOnProductLoss.length === cartLines.length), addOnProductLoss.length === cartLines.length && (console.log("Removal Condition Matched"), removeAllProducts())
+        }, 1000)
+    };
+
+document.addEventListener("product:added", cartManager), document.addEventListener("cart:refresh", cartRefreshManager), document.addEventListener("cart:refresh", () => {
+    setTimeout(() => {
+        popUpHandler(), addClassToElements(), document.querySelectorAll(".mini-cart__line-item").length > 0 && (addRemoveFunctionality(), addButtonFunctionality())
+    }, 1000)
+}), document.addEventListener("product:added", () => {
+    setTimeout(() => {
+        popUpHandler(), document.querySelectorAll(".mini-cart__line-item").length > 0 && (addRemoveFunctionality(), addClassToElements()), addButtonFunctionality()
+    }, 1000)
+}), document.addEventListener("DOMContentLoaded", () => {
+    document.documentElement.dispatchEvent(new CustomEvent("cart:refresh", {
+        bubbles: !0
+    }))
+}); 
+//# sourceMappingURL=/cdn/shop/t/7/assets/custom.js?v=50471568333092923671726813920
+	</script>
+	
+	
+	
+	/* custom drawer script*/
+	document.addEventListener("DOMContentLoaded", function() {
+    function hideMiniCart() {
+        console.log("Hiding mini-cart");
+        var miniCart = document.getElementById("mini-cart");
+        miniCart && miniCart.setAttribute("aria-hidden", "true")
+    }
+    document.addEventListener("click", function(event) {
+        event.target.matches(".button-exit") && (event.preventDefault(), hideMiniCart())
+    }), document.addEventListener("click", function(event) {
+        event.target.matches(".header__action-item--cart") && (console.log("Cart button clicked"), setTimeout(function() {
+            hideMiniCart()
+        }, 3e3))
+    })
+}), window.onload = function() {
+    setTimeout(function() {
+        var addonIcons = document.querySelectorAll(".custom-addon-icons .addon-icon");
+        addonIcons.forEach(function(icon) {
+            icon.addEventListener("click", function() {
+                addonIcons.forEach(function(el) {
+                    el.classList.remove("activated")
+                }), this.classList.add("activated")
+            })
+        })
+    }, 2e3)
+};

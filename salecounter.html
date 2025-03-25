@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Countdown Timer</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            font-family: Arial, sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+        .countdown-container {
+            display: flex;
+            gap: 20px;
+        }
+        .countdown-item {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+        .countdown-item svg {
+            transform: rotate(-90deg);
+        }
+        .countdown-item circle {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+        }
+        .bg-circle {
+            stroke: rgba(255, 255, 255, 0.2);
+        }
+        .progress-circle {
+            stroke: #00ffcc;
+            stroke-dasharray: 251;
+            stroke-dashoffset: 251;
+            transition: stroke-dashoffset 1s linear;
+        }
+        .countdown-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+        <div class="countdown-item">
+            <svg width="100" height="100">
+                <circle class="bg-circle" cx="50" cy="50" r="40"></circle>
+                <circle class="progress-circle" cx="50" cy="50" r="40"></circle>
+            </svg>
+            <div class="countdown-text" id="hours">00</div>
+        </div>
+        <div class="countdown-item">
+            <svg width="100" height="100">
+                <circle class="bg-circle" cx="50" cy="50" r="40"></circle>
+                <circle class="progress-circle" cx="50" cy="50" r="40"></circle>
+            </svg>
+            <div class="countdown-text" id="minutes">00</div>
+        </div>
+        <div class="countdown-item">
+            <svg width="100" height="100">
+                <circle class="bg-circle" cx="50" cy="50" r="40"></circle>
+                <circle class="progress-circle" cx="50" cy="50" r="40"></circle>
+            </svg>
+            <div class="countdown-text" id="seconds">00</div>
+        </div>
+    </div>
+
+    <script>
+        function getNextTwoHourInterval() {
+            const now = new Date();
+            const nextInterval = new Date(Math.ceil(now.getTime() / (2 * 60 * 60 * 1000)) * (2 * 60 * 60 * 1000));
+            return nextInterval.getTime();
+        }
+
+        let nextIntervalTime = getNextTwoHourInterval();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const timeLeft = nextIntervalTime - now;
+
+            if (timeLeft > 0) {
+                const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+                const seconds = Math.floor((timeLeft / 1000) % 60);
+                
+                document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+                document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+                document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+                
+                updateProgress("hours", hours, 24);
+                updateProgress("minutes", minutes, 60);
+                updateProgress("seconds", seconds, 60);
+            } else {
+                nextIntervalTime = getNextTwoHourInterval();
+            }
+        }
+        
+        function updateProgress(id, value, max) {
+            const percentage = (value / max) * 251;
+            document.getElementById(id).parentElement.querySelector(".progress-circle").style.strokeDashoffset = 251 - percentage;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>

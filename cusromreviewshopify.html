@@ -1,0 +1,56 @@
+<section class="custom-reviews" id="review-{{ section.id }}">
+  <div class="reviews-summary">
+    <!-- Average Rating and Review Count -->
+    <div class="reviews-info">
+      <a href=""></a>
+      <span class="average-rating" id="average-rating"></span>
+      <img src="https://cdn.shopify.com/s/files/1/0654/8203/1361/files/BP_fdcf3142-1178-4a54-ae66-b94d56784eb1.svg?v=1733480708" alt="" />
+      <span class="total-reviews" id="total-reviews">1 Review</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  #review-{{ section.id }} .reviews-info {
+    font-size: 16px;
+    color: #000;
+    font-weight: 700;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  #review-{{ section.id }} .reviews-info img {
+    width: 100%;
+    max-width: 120px;
+  }
+#review-{{ section.id }} span#total-reviews {
+    padding-left: 12px;
+    text-transform: capitalize;
+}
+</style>
+
+<script>
+  // Function to generate a random number between min and max
+  function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  // Example review data
+  const reviewData = {
+    averageRating: 4.5,  // Fixed average rating
+    totalReviews: getRandomNumber(1, 34) // Random number between 1 and 34
+  };
+
+  // Update the reviews section
+  function updateReviews(data) {
+    // Update the average rating
+    //document.getElementById("average-rating").textContent = `Average Rating: ${data.averageRating}`;
+
+    // Update the total reviews count
+    document.getElementById("total-reviews").textContent = `${data.totalReviews} reviews`;
+  }
+
+  // Initialize
+  updateReviews(reviewData);
+</script>
