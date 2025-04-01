@@ -1,0 +1,221 @@
+<style>
+/* General Tab Navigation Styling */
+.tabs-nav {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0 !important;
+    /* border-bottom: 2px solid #ddd; */
+    /* justify-content: center;  */
+    gap: 10px!important; /* Add spacing between tabs */
+  padding: 0 0 0!important;
+}
+
+.tab-item {
+    padding: 12px 20px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    background-color: #f7f7f7;
+    color: #333;
+    border-radius: 5px 5px 0 0;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-size: 16px;
+  margin-top:0!important;
+}
+
+.tab-item.active {
+    background-color: #fff;
+    border-color: #ddd #ddd transparent;
+    font-weight: bold;
+  border:1px solid #ddd;
+    color: #3967f6!important; /* Highlighted tab color */
+}
+
+.tab-item:hover {
+    background-color: #eaeaea;
+    color: #3967f6;
+}
+
+/* Tab Content Styling */
+.tabs-body {
+    border: 1px solid #ddd;
+    border-radius: 0 0 5px 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+} 
+  .tabs-contents, .tabs-contents a, .tabs-contents ul,.tabs-contents ul li, .tabs-contents p, div#tab-1{
+    color:#000!important;
+  }
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+    .tabs-nav {
+        /* flex-direction: column; */
+        border-bottom: none;
+        margin: 0!important;
+        gap: 5px;
+
+      justify-content: start; 
+    }
+
+    .tab-item {
+        border-radius: 5px;
+        text-align: left;
+        padding: 10px 15px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        background: #fff;
+        color: #333;
+    }
+
+    .tab-item.active {
+        background-color: #f7f7f7;
+        border: 1px solid #ddd;
+    }
+
+    /* Ensure the tab content is displayed below the tabs */
+    .tabs-body {
+        margin-top: 10px;
+        border: none;
+        padding: 10px 5px;
+      box-shadow:none;
+    }
+
+    .tab-content {
+        display: none;
+        /* margin-top: 10px; */
+    }
+
+    .tab-content.active {
+        display: block;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 5px;
+    }
+}
+
+/* Hover Animation */
+.tab-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.tab-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #3967f6;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+  .tab-item::after .active {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #3967f6;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.tab-item:hover::after {
+    width: 100%;
+    left: 0;
+}
+</style>
+<div class="tabs-contents  clearfix halo-text-format" id="cust-{{ section.id }}">
+{{ product.description }}
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Select the container with the class tabs-contents
+    
+    const tabsContainer = document.querySelector(".tabs-contents");
+    if (!tabsContainer) return;
+
+    // Find all <h5> tags inside the tabs-contents container
+    let headers = tabsContainer.querySelectorAll("h5");
+
+    // If no <h5> exists at the first position, create one
+    if (!headers.length || tabsContainer.firstElementChild.tagName !== "H5") {
+        const defaultHeader = document.createElement("h5");
+        defaultHeader.textContent = "Description";
+        tabsContainer.prepend(defaultHeader);
+        headers = tabsContainer.querySelectorAll("h5"); // Re-fetch headers
+    }
+
+    if (headers.length) {
+        // Create a new tab navigation and content area
+        const tabsNav = document.createElement("ul");
+        tabsNav.className = "tabs-nav";
+        const tabsContent = document.createElement("div");
+        tabsContent.className = "tabs-body";
+
+        headers.forEach((header, index) => {
+            // Create a tab button
+            const tabId = `tab-${index}`;
+            const tabButton = document.createElement("li");
+            tabButton.className = `tab-item ${index === 0 ? "active" : ""}`;
+            tabButton.textContent = header.textContent.trim();
+            tabButton.dataset.tabTarget = tabId;
+
+            // Add the tab button to the navigation
+            tabsNav.appendChild(tabButton);
+
+            // Create the content wrapper
+            const tabContent = document.createElement("div");
+            tabContent.className = `tab-content ${index === 0 ? "active" : ""}`;
+            tabContent.id = tabId;
+
+            // Move all siblings of the <h5> header into this content area
+            let sibling = header.nextElementSibling;
+            while (sibling && sibling.tagName !== "H5") {
+                const nextSibling = sibling.nextElementSibling;
+                tabContent.appendChild(sibling);
+                sibling = nextSibling;
+            }
+
+            // Add the tab content to the content area
+            tabsContent.appendChild(tabContent);
+
+            // Remove the original <h5> header
+            header.remove();
+        });
+
+        // Append the tab navigation and content area to the container
+        tabsContainer.prepend(tabsNav);
+        tabsContainer.appendChild(tabsContent);
+
+        // Add event listeners for tab switching
+        tabsNav.addEventListener("click", (e) => {
+            const tab = e.target.closest(".tab-item");
+            if (!tab) return;
+
+            // Deactivate all tabs and content
+            tabsNav.querySelectorAll(".tab-item").forEach((item) => item.classList.remove("active"));
+            tabsContent.querySelectorAll(".tab-content").forEach((content) => content.classList.remove("active"));
+
+            // Activate the clicked tab and its content
+            tab.classList.add("active");
+            const target = document.getElementById(tab.dataset.tabTarget);
+            if (target) target.classList.add("active");
+        });
+    }
+});
+</script>
