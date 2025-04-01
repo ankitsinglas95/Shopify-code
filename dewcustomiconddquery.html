@@ -1,0 +1,70 @@
+<section class="custs-shipped" id="shop-{{ section.id }}">
+  <div class="cust-icon" id="content1">
+    <img id="img1" src="https://cdn.shopify.com/s/files/1/0689/7388/7807/files/101_Items_Delivered.svg?v=1742291253" alt="Customer Icon">
+    <!-- <span id="text1"><strong>101 items still in stock!</strong> grab yours before they're history!</span> -->
+     <span id="text1"><strong>101 items still in stock!</strong></span>
+  </div>
+  <div class="cust-icon" id="content2">
+    <img id="img2" src="https://cdn.shopify.com/s/files/1/0689/7388/7807/files/200_people.svg?v=1742291254" alt="Customer Icon">
+    <!-- <span id="text2"><strong>89 people are also interested!</strong> Join the chase for this hot deal!</span> -->
+     <span id="text2"><strong>89 people are also interested!</strong></span>
+  </div>
+</section>
+
+
+
+
+
+
+<style>
+
+#shop-{{ section.id }} .cust-icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 13px;
+}
+ #shop-{{ section.id }} .cust-icon img{
+    width:24px;
+  }
+  #shop-{{ section.id }} .cust-icon span {
+  font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    line-height: 28px;
+}
+}
+#shop-{{ section.id }} .cust-icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+</style>
+
+
+   <script>
+        // List of numbers for items in stock and people interested
+        const numbers1 = [101, 99, 87, 76, 65];  // For "items still in stock"
+        const numbers2 = [89, 92, 105, 111, 120]; // For "people interested"
+        let currentIndex1 = 0;
+        let currentIndex2 = 0;
+
+        // Function to update the text for items in stock
+        function changeStockNumber() {
+            const textElement1 = document.getElementById('text1');
+            textElement1.innerHTML = `<strong>${numbers1[currentIndex1]} items still in stock!</strong>`;
+            currentIndex1 = (currentIndex1 + 1) % numbers1.length;
+        }
+
+        // Function to update the text for people interested
+        function changeInterestNumber() {
+            const textElement2 = document.getElementById('text2');
+            textElement2.innerHTML = `<strong>${numbers2[currentIndex2]} people are also interested!</strong>`;
+            currentIndex2 = (currentIndex2 + 1) % numbers2.length;
+        }
+
+        // Call the changeNumber functions every 2 seconds for each content block
+        setInterval(changeStockNumber, 2000);  // Change stock numbers every 2 seconds
+        setInterval(changeInterestNumber, 3000);  // Change people interest numbers every 3 seconds
+    </script>
