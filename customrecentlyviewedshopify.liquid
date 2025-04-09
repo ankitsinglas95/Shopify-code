@@ -1,0 +1,209 @@
+  {
+      "type": "collection",
+      "id": "collection",
+      "label": "Recently View"
+    },
+
+<div class="cust-recent">
+  <div class="owl-carousel owl-theme">
+    {% for product in section.settings.collection.products %}
+      <div class="item">
+        <div class="main-upper">
+          <div class="image">
+            <a href="{{ product.url }}">
+              <img class="product__img" src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.featured_image.alt }}" />
+              <span class="et_overlay"></span>
+            </a>
+          </div>
+          <div class="conccts">
+            <div class="conts">
+              <h4>
+                <a href="{{ product.url }}" style="color:#000">{{ product.title | truncate: 50 }}</a>
+              </h4>
+            </div>
+            <div class="custom-compare"> 
+              <p class="main-price mw-price">₹{{ product.price | money_without_currency }}</p>
+            </div>
+            <!-- Add to Cart Button -->
+            <div class="add-to-cart">
+              <form action="/cart/add" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                <button type="submit" class="btn-add-to-cart">Add to Cart</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<style>
+  /* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* Owl Carousel */
+.cust-recent .owl-carousel {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cust-recent .owl-carousel .item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cust-recent .main-upper {
+    display: flex;
+    justify-content: space-between;
+    gap: 46px;
+    /* padding: 59px 12px; */
+}
+.cust-recent .image a {
+  display: block;
+  position: relative;
+}
+
+.cust-recent .product__img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  max-width:174px!important;
+}
+.cust-recent .main-upper .image {
+    width: 100%;
+    border: 1px solid #d5d5d5;
+    border-radius: 8px;
+    padding: 12px;
+}
+  
+
+.cust-recent .conccts {
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+.cust-recent .conts h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.cust-recent .conts h4 a {
+  text-decoration: none;
+  color: #000;
+  transition: color 0.3s ease;
+}
+
+.cust-recent .conts h4 a:hover {
+  color: #ff6f61;
+}
+
+.cust-recent .custom-compare {
+  margin-bottom: 15px;
+}
+
+.cust-recent .mw-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.cust-recent .add-to-cart {
+  margin-top: 20px;
+}
+
+.cust-recent .btn-add-to-cart {
+  background-color: #ff6f61;
+  color: #fff;
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cust-recent .btn-add-to-cart:hover {
+  background-color: #e55b50;
+}
+
+@media (max-width: 600px) {
+.cust-recent   .main-upper {
+    padding: 15px;
+  }
+
+.cust-recent   .product__img {
+    width: 100%;
+    height: auto;
+  }
+
+.cust-recent   .mw-price {
+    font-size: 16px;
+  }
+
+ .cust-recent  .btn-add-to-cart {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+.cust-recent   .main-upper {
+    padding: 10px;
+  }
+
+ .cust-recent  .conts h4 {
+    font-size: 14px;
+  }
+
+ .cust-recent  .mw-price {
+    font-size: 14px;
+  }
+
+.cust-recent   .btn-add-to-cart {
+    padding: 10px 20px;
+    font-size: 12px;
+  }
+}
+
+</style>
+
+<!-- Include Owl Carousel JS and CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<script>
+  $(document).ready(function(){
+    $(".owl-carousel").owlCarousel({
+      items: 1,                  // Number of items per slide
+      margin: 10,                // Space between items
+      loop: true,                // Loop the carousel
+      autoplay: true,
+      dots: false,
+      Arrow: true,
+      autoplayTimeout: 8000,     // Auto-play timeout in milliseconds
+      responsive: {
+        0: {
+          items: 1              // Number of items on mobile
+        },
+        600: {
+          items: 1              // Number of items on small screens
+        },
+        1000: {
+          items: 1              // Number of items on larger screens
+        }
+      }
+    });
+  });
+</script>
