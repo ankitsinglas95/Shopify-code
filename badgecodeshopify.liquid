@@ -1,3 +1,11 @@
 {% if product.compare_at_price_max > product.price %}
 <span class="badge badge--sale color-{{ settings.sale_badge_color_scheme }}"><span>{{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span> {{ 'products.product.on_sale' | t }}</span>
 {% endif %}
+
+
+
+    {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
+      <p class="product__inventory_quantity" id="inventory-{{ section.id }}">
+     Only   {{ product.selected_or_first_available_variant.inventory_quantity }} left!
+      </p>
+    {%- endif -%}
