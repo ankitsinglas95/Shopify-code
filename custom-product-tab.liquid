@@ -13,17 +13,15 @@
         {% assign tab_index = 0 %}
         {% for block in section.blocks %}
           <li >
-        
               <a href="#panel{{ tab_index }}" class="{% if forloop.first %}active{% endif %}">
                  <div class="dgjbdfg">
                    {{ block.settings.text }}
-                 </div></a>
-       
+                 </div>
+              </a>
           </li>
           {% assign tab_index = tab_index | plus: 1 %}
         {% endfor %}
       </ul>
-
 
       <!-- Panel Content -->
       <div class="panelContainer">
@@ -35,7 +33,6 @@
               {% if collection and collection.products.size > 0 %}
                 {% for product in collection.products limit: 8 %}
                   <div class="product-card">
-
                     <div class="custom-text-above-image custom-badge">
                     {% if product.compare_at_price_max > product.price %}
                     <span class="badge badge--sale color-{{ settings.sale_badge_color_scheme }}"><span>{{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span> {{ 'products.product.on_sale' | t }}</span>
@@ -55,7 +52,6 @@
                   <div style='{{ jm_style }}' class='jdgm-widget jdgm-preview-badge' data-id='{{ product.id }}' data-auto-install='false'>
                 {{ product.metafields.judgeme.badge }}
                 </div>
-
    <p>{{ product.metafields.custom.home_page_description1 | metafield_tag | strip_html | truncate: 100 }}</p>
                     
                     {% if product.compare_at_price > product.price %}
@@ -70,6 +66,7 @@
 {% endif %}
 
                     {% if product.available %}
+                      
          {%- form 'product',
                 product,
                 id: product_form_id,
@@ -108,6 +105,7 @@
                     id="ProductSubmitButton-{{ section_id }}"
                     type="submit"
                     name="add"
+                   aria-controls="CartDrawer"
                     class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
                     {% if product.selected_or_first_available_variant.available == false
                       or quantity_rule_soldout
@@ -135,13 +133,9 @@
 {% else %}
   <button class="custom-add-to-cart" disabled>Sold Out</button>
 {% endif %}
-
-                    </div>
-            
+                    </div>         
                   </div>
-                {% endfor %}
-
-              
+                {% endfor %}           
               {% else %}
                 <p>No products available in this collection.</p>
               {% endif %}
@@ -149,21 +143,15 @@
           </div>
           {% assign panel_index = panel_index | plus: 1 %}
         {% endfor %}
-      </div>
-
- 
-      
+      </div>     
     </div>
-
     <!-- See More Button -->
-
-
   </div>
 </section>
 
 {% style %}
 
-  .image-box2 {
+.image-box2 {
   position: relative;
   overflow: hidden;
 }
@@ -188,9 +176,7 @@
 
 .image-box2:hover img.first-image {
   opacity: 0;
-}
-
-  
+} 
 .tabbedPanels {
   position: relative;
 }
@@ -208,7 +194,6 @@ ul.tabs li a .dgjbdfg {
   padding-bottom: 10px;
       border-radius: 10px 10px 0 0px;
 }
-
 .custom-text-above-image.custom-badge {
   display: flex;
   justify-content: flex-start;
@@ -230,7 +215,6 @@ h3.product-heading {
   line-height: 16px;
   color: #691c32;
 }
-
 .panel p {
     font-size: 17px;
     line-height: 25px;
@@ -409,23 +393,6 @@ p.sjhswse {
   text-align: center;
   margin-top: 75px !important;
 }
-/* .gfdsgdwww h2.section-heading1 {
-  text-align: center;
-  color: #cc2127;
-  font-size: 50px;
-  font-weight: 600;
-  line-height: 58px;
-  margin-bottom: -11px;
-}
-.gfdsgdwww h2.section-heading1 {
-  text-align: center;
-  color: #cc2127;
-  font-size: 50px;
-  font-weight: 600;
-  line-height: 58px;
-  margin-bottom: -9px;
-  margin-top: 83px;
-} */
 .Product2 {
   margin-top: 120px !important;
 }
@@ -486,17 +453,6 @@ img.products-image-color {
 .panelContainer .product-card {
   text-align: center;
 }
-/* .tabs li {
-  text-decoration: none;
-  color: #1a1a1a;
-  font-size: 16px;
-  font-weight: 600;
-  background: #e2e2e2;
-  border-radius: 3px;
-  text-transform: uppercase;
-  width: 100%;
-  max-width: 100%;
-} */
 hr.sdvdshdsbh {
   margin: 0 auto;
   width: 15%;
@@ -650,7 +606,6 @@ hr.sdvdshdsbh {
   .panelContainer h3.product-heading {
     font-size: 12px !important;
     line-height: 14px !important;
-    /* color: black; */
     margin-bottom: 6px !important;
   }
   span.sale-price {
@@ -835,7 +790,6 @@ hr.sdvdshdsbh {
     padding-bottom: 7px;
   }
 }
-
 @media only screen and (max-width: 1024px) and (min-width: 768px) {
   .collection-list-wrapper .collection-list {
     gap: 2.2vw;
@@ -854,7 +808,6 @@ hr.sdvdshdsbh {
     height: 193px;
   }
 }
-
 @media only screen and (max-width: 1280px) and (min-width: 1025px) {
   .tabs a {
     text-decoration: none;
@@ -871,7 +824,6 @@ hr.sdvdshdsbh {
     height: 193px;
   }
 }
-
 .tabs li {
   width: 24% !important;
 }
@@ -879,9 +831,6 @@ hr.sdvdshdsbh{
   display:none;
 }
 
-
-
-  
 {% endstyle %}
 
 {% javascript %}
@@ -900,28 +849,61 @@ $(document).ready(function() {
   $('.tabs li:first a').trigger('click');
 });
 {% endjavascript %}
+
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    function isIE() {
-      const ua = window.navigator.userAgent;
-      const msie = ua.indexOf('MSIE ');
-      const trident = ua.indexOf('Trident/');
+ document.addEventListener('DOMContentLoaded', function () {
+  const productForms = document.querySelectorAll('form[data-type="add-to-cart-form"]');
 
-      return (msie > 0 || trident > 0);
-    }
+  productForms.forEach((form) => {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-    if (!isIE()) return;
-    const hiddenInput = document.querySelector('#{{ product_form_id }} input[name="id"]');
-    const noScriptInputWrapper = document.createElement('div');
-    const variantSwitcher = document.querySelector('variant-radios[data-section="{{ section.id }}"]') || document.querySelector('variant-selects[data-section="{{ section.id }}"]');
-    noScriptInputWrapper.innerHTML = document.querySelector('.product-form__noscript-wrapper-{{ section.id }}').textContent;
-    variantSwitcher.outerHTML = noScriptInputWrapper.outerHTML;
+      const formData = new FormData(form);
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
 
-    document.querySelector('#Variants-{{ section.id }}').addEventListener('change', function(event) {
-      hiddenInput.value = event.currentTarget.value;
+      fetch('/cart/add.js', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('✅ Product added:', data);
+
+          // 1. If drawer is controlled by a class toggle
+          const cartDrawer = document.getElementById('CartDrawer');
+          if (cartDrawer) {
+            cartDrawer.classList.add('is-open'); // change this to your theme's open class
+            document.body.classList.add('cart-drawer-open'); // some themes add a class to body
+          }
+
+          // 2. Try simulating click on cart icon if it triggers drawer
+          const cartIcon = document.querySelector('[aria-controls="CartDrawer"], .header__icon--cart');
+          if (cartIcon) {
+            const event = new MouseEvent('click', {
+              view: window,
+              bubbles: true,
+              cancelable: true
+            });
+            cartIcon.dispatchEvent(event);
+            console.log('🛒 Dispatched click to cart icon.');
+          }
+
+          submitBtn.disabled = false;
+        })
+        .catch(error => {
+          console.error('❌ Error adding to cart:', error);
+          submitBtn.disabled = false;
+        });
     });
   });
+});
+
 </script>
+
 {% schema %}
 {
   "name": "Custom Product Tabs",
