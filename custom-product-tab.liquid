@@ -850,8 +850,9 @@ $(document).ready(function() {
 });
 {% endjavascript %}
 
+
 <script>
- document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
   const productForms = document.querySelectorAll('form[data-type="add-to-cart-form"]');
 
   productForms.forEach((form) => {
@@ -869,18 +870,21 @@ $(document).ready(function() {
           'Accept': 'application/json'
         }
       })
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          return response.json();
+        })
         .then(data => {
           console.log('✅ Product added:', data);
 
-          // 1. If drawer is controlled by a class toggle
-          const cartDrawer = document.getElementById('CartDrawer');
+          // Open the cart drawer
+          const cartDrawer = document.querySelector('cart-drawer');
           if (cartDrawer) {
-            cartDrawer.classList.add('is-open'); // change this to your theme's open class
-            document.body.classList.add('cart-drawer-open'); // some themes add a class to body
+            cartDrawer.classList.add('is-open');
+            document.body.classList.add('cart-drawer-open');
           }
 
-          // 2. Try simulating click on cart icon if it triggers drawer
+          // OPTIONAL: Trigger cart icon
           const cartIcon = document.querySelector('[aria-controls="CartDrawer"], .header__icon--cart');
           if (cartIcon) {
             const event = new MouseEvent('click', {
@@ -892,17 +896,54 @@ $(document).ready(function() {
             console.log('🛒 Dispatched click to cart icon.');
           }
 
-          submitBtn.disabled = false;
+          // Refresh drawer content
+          return fetch('/?section_id=cart-drawer');
+        })
+        .then(res => {
+          if (!res.ok) throw new Error(`Failed to load cart drawer section: ${res.status}`);
+          return res.text();
+        })
+        .then(html => {
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = html;
+
+          const newDrawerContent = tempDiv.querySelector('cart-drawer');
+          const currentDrawer = document.querySelector('cart-drawer');
+
+          if (newDrawerContent && currentDrawer) {
+            currentDrawer.innerHTML = newDrawerContent.innerHTML;
+
+            // ✅ Remove is-empty from <cart-drawer>
+            currentDrawer.classList.remove('is-empty');
+            console.log('🧼 Removed .is-empty from <cart-drawer>');
+
+            // ✅ Enable checkout button
+            const checkoutButton = currentDrawer.querySelector('#CartDrawer-Checkout');
+            if (checkoutButton) {
+              checkoutButton.removeAttribute('disabled');
+              console.log('🚀 Enabled the checkout button');
+            }
+
+            // ✅ Hide empty message
+            const emptyMessage = currentDrawer.querySelector('.drawer__inner-empty');
+            if (emptyMessage) {
+              emptyMessage.style.display = 'none';
+              console.log('🙈 Hid .drawer__inner-empty');
+            }
+          } else {
+            console.warn('❗ Could not find updated <cart-drawer> in fetched HTML.');
+          }
         })
         .catch(error => {
-          console.error('❌ Error adding to cart:', error);
-          submitBtn.disabled = false;
+          console.error('❌ Error:', error);
         });
     });
   });
 });
-
 </script>
+
+ 
+
 
 {% schema %}
 {
